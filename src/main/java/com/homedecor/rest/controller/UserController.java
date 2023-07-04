@@ -6,6 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import com.homedecor.rest.common.messages.BaseResponse;
 import com.homedecor.rest.service.UserService;
+import com.homedecor.rest.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

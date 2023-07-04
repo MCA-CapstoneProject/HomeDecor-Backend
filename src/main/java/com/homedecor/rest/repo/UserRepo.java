@@ -6,6 +6,6 @@ import com.homedecor.rest.entity.User;
 
 public interface UserRepo extends JpaRepository<User, Long> {
 
-	public User findByUserId(Long empId);
+	public User findByUserId(Long userId);
 
 }
