@@ -3,6 +3,7 @@ package com.homedecor.rest.repo;
 import com.homedecor.rest.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserDao {
     User findByUserId(Long userId);
@@ -13,4 +14,10 @@ public interface UserDao {
     void save(User user);
 
     void deleteById(Long userId);
+
+//    Optional<User> findByEmail(String email);
+//    Optional<User> findByUsernameOrEmail(String username, String email);
+//    Optional<User> findByUsername(String username);
+//    boolean existsByUsername(String username);
+//    boolean existsByEmail(String email);
 }
