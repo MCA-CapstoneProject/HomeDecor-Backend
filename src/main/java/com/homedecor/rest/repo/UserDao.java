@@ -3,7 +3,6 @@ package com.homedecor.rest.repo;
 import com.homedecor.rest.entity.User;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserDao {
     User findByUserId(Long userId);
