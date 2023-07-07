@@ -6,7 +6,7 @@ public class UserDto {
 
     private String fullName;
 
-    private String username;
+    private String userName;
 
     private String email;
 
@@ -34,12 +34,12 @@ public class UserDto {
         this.fullName = fullName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String gender) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {

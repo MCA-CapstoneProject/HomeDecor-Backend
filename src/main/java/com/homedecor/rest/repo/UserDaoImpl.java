@@ -36,4 +36,14 @@ public class UserDaoImpl implements UserDao {
     public void deleteById(Long userId) {
         userRepo.deleteById(userId);
     }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return userRepo.existsByUserName(username);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userRepo.existsByEmail(email);
+    }
 }

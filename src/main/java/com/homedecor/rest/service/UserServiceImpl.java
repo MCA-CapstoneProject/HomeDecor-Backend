@@ -56,6 +56,16 @@ public class UserServiceImpl implements UserService{
 
     }
 
+    @Override
+    public boolean existsByUsername(String username) {
+        return userDao.existsByUsername(username);
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return userDao.existsByEmail(email);
+    }
+
     private UserDto copyEntityToDto(User user) {
         UserDto userDto = new UserDto();
         BeanUtils.copyProperties(user, userDto);

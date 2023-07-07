@@ -13,4 +13,7 @@ public interface UserService {
     BaseResponse deleteUserById(Long userId);
 
 
+    boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
 }

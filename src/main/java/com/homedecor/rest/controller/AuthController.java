@@ -2,7 +2,7 @@ package com.homedecor.rest.controller;
 
 import com.homedecor.rest.dto.UserDto;
 import com.homedecor.rest.entity.User;
-import com.homedecor.rest.repo.UserRepo;
+import com.homedecor.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,30 +20,23 @@ public class AuthController {
 //    private AuthenticationManager authenticationManager;
 
     @Autowired
-    private UserRepo userRepository;
+    private UserService userService;
 
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody UserDto userDto){
 
         // add check for username exists in a DB
-        if(userRepository.existsByUsername(userDto.getUsername())){
+        if(userService.existsByUsername(userDto.getUserName())){
             return new ResponseEntity<>("Username is already taken!", HttpStatus.BAD_REQUEST);
         }
 
         // add check for email exists in DB
-        if(userRepository.existsByEmail(userDto.getEmail())){
+        if(userService.existsByEmail(userDto.getEmail())){
             return new ResponseEntity<>("Email is already taken!", HttpStatus.BAD_REQUEST);
         }
 
-        // create user object
-        User user = new User();
-        user.setFullName(userDto.getFullName());
-        user.setUsername(userDto.getUsername());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
-
-        userRepository.save(user);
+        userService.createOrUpdateUser(userDto);
 
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
 

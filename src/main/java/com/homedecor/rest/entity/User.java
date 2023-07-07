@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 @Table(name = "user",
         indexes = {@Index(columnList = "phone", unique = true, name = "number")},
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"username"}),
+                @UniqueConstraint(columnNames = {"user_name"}),
                 @UniqueConstraint(columnNames = {"email"})
         }
 )
@@ -23,8 +23,8 @@ public class User {
     private String fullName;
 
     @Size(max = 10, min = 1, message = "username must be equal or less than '{max}'")
-    @Column(name = "username")
-    private String username;
+    @Column(name = "user_name")
+    private String userName;
 
     @Column(name = "email")
     private String email;
@@ -59,12 +59,12 @@ public class User {
         this.fullName = fullName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String gender) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {
