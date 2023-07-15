@@ -4,6 +4,7 @@ package com.homedecor.rest.security;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -27,13 +28,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .mvcMatchers("/user/public").permitAll()
-                .mvcMatchers("/secured/**").authenticated()
+        http
+                .cors().and()
+                .csrf().disable() // Disable CSRF for simplicity
+                .authorizeRequests()
+                .mvcMatchers(HttpMethod.GET, "/secured/**").authenticated()
+                .mvcMatchers(HttpMethod.POST, "/secured/**").authenticated()
+                .mvcMatchers(HttpMethod.PUT, "/secured/**").authenticated()
                 .mvcMatchers("/user/private-scoped").hasAuthority("SCOPE_read:messages")
-                .and().cors()
-                .and().oauth2ResourceServer().jwt();
-
+                .anyRequest().permitAll()
+                .and()
+                .oauth2ResourceServer().jwt();
     }
 
     @Bean
