@@ -5,25 +5,20 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import com.homedecor.rest.common.messages.BaseResponse;
+import com.homedecor.rest.model.Message;
 import com.homedecor.rest.service.UserService;
 import com.homedecor.rest.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.homedecor.rest.dto.UserDto;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/secured/user")
+@CrossOrigin(origins = "*")
 public class UserController {
 
 	@Autowired
@@ -51,5 +46,16 @@ public class UserController {
 	public ResponseEntity<BaseResponse> deleteUserById(@PathVariable("id") Long id) {
 		BaseResponse response = userService.deleteUserById(id);
 		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+
+	@GetMapping(value = "/public")
+	public Message publicEndpoint() {
+		return new Message("All good. You DO NOT need to be authenticated to call /api/public.");
+	}
+
+	@GetMapping(value = "/private")
+	public Message privateEndpoint() {
+		return new Message("All good. You can see this because you are Authenticated.");
 	}
 }

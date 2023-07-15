@@ -14,7 +14,8 @@ import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.List;
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/secured/category")
+@CrossOrigin(origins = "*")
 public class CategoryController {
     @Autowired
     CategoryService categoryService;
