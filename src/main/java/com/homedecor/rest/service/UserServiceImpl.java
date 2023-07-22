@@ -57,6 +57,17 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public UserDto findByUserNameAndPassword(String userName,String email, String password) {
+
+        User user = userDao.findByUserNameOrEmail(userName,email);
+        if (user != null) {
+            return copyEntityToDto(user);
+        } else {
+            throw new RecordNotFoundException("Invalid username or password");
+        }
+    }
+
+    @Override
     public boolean existsByUsername(String username) {
         return userDao.existsByUsername(username);
     }

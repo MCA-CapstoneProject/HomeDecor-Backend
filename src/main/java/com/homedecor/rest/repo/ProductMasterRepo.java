@@ -11,5 +11,5 @@ public interface ProductMasterRepo extends JpaRepository<ProductMaster, Long> {
 
     void deleteById(Long id);
 
-    ProductMaster findByProductMasterId(Long id);
+    ProductMaster findByProductId(Long id);
 }

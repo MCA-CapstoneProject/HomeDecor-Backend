@@ -30,7 +30,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "ProductMaster")
 public class ProductMaster implements java.io.Serializable {
 
-    private Long id;
+    private Long productId;
     private Brand brand;
     private User userByModifiedBy;
     private User userByCreatedBy;
@@ -52,12 +52,12 @@ public class ProductMaster implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    public Long getId() {
-        return this.id;
+    public Long getProductId() {
+        return this.productId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

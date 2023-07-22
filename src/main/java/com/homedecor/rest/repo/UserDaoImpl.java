@@ -46,4 +46,9 @@ public class UserDaoImpl implements UserDao {
     public boolean existsByEmail(String email) {
         return userRepo.existsByEmail(email);
     }
+
+    @Override
+    public User findByUserNameOrEmail(String userName, String email) {
+        return userRepo.findByUserNameOrEmail(userName,email);
+    }
 }

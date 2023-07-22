@@ -6,8 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BrandRepo extends JpaRepository<Brand, Long> {
     public boolean existsById(Long id);
-
     void deleteById(Long id);
-
     Brand findByBrandId(Long id);
 }

@@ -1,3 +1,4 @@
+/*
 package com.homedecor.rest.entity;
 
 import javax.persistence.*;
@@ -41,4 +42,4 @@ public class Order {
         this.total_price = total_price;
     }
 
-}
+}*/

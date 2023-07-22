@@ -1,3 +1,4 @@
+/*
 package com.homedecor.rest.entity;
 
 import javax.persistence.*;
@@ -83,3 +84,4 @@ public class Shipment {
         this.zip_code = zipCode;
     }
 }
+*/

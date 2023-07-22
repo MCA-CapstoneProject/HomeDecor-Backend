@@ -9,32 +9,32 @@ import java.util.List;
 @Repository
 public class ProductMasterDaoImpl implements ProductMasterDao {
     @Autowired
-    ProductMasterRepo ProductMasterRepo;
+    ProductMasterRepo productMasterRepo;
 
 
     @Override
     public List<ProductMaster> findAllProducts() {
-        return ProductMasterRepo.findAll();
+        return productMasterRepo.findAll();
     }
 
     @Override
     public ProductMaster findById(Long id) {
-        return ProductMasterRepo.findByProductMasterId(id);
+        return productMasterRepo.findByProductId(id);
     }
 
     @Override
     public boolean existsById(Long id) {
-        return ProductMasterRepo.existsById(id);
+        return productMasterRepo.existsById(id);
     }
 
     @Override
     public void save(ProductMaster ProductMaster) {
-         ProductMasterRepo.save(ProductMaster);
+         productMasterRepo.save(ProductMaster);
     }
 
     @Override
     public void deleteById(Long id) {
-        ProductMasterRepo.deleteById(id);
+        productMasterRepo.deleteById(id);
     }
 }
 

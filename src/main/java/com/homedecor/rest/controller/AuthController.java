@@ -1,13 +1,15 @@
 package com.homedecor.rest.controller;
 
+import com.homedecor.rest.common.exceptions.RecordNotFoundException;
+import com.homedecor.rest.dto.LoginDto;
 import com.homedecor.rest.dto.UserDto;
-import com.homedecor.rest.entity.User;
 import com.homedecor.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
+
+//import org.springframework.security.authentication.AuthenticationManager;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -38,6 +40,17 @@ public class AuthController {
 
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
 
+    }
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
+        UserDto userDto = userService.findByUserNameAndPassword(loginDto.getUsernameOrEmail(),loginDto.getUsernameOrEmail(),loginDto.getPassword());
+        if (userDto==null) {
+            return new ResponseEntity<>("Username is invalid!", HttpStatus.BAD_REQUEST);
+        }
+        if(!userDto.getPassword().contentEquals(loginDto.getPassword())){
+            throw new RecordNotFoundException("Invalid username or password");
+        }
+        return new ResponseEntity<>(Auth0TokenGetter.getAccessToken(), HttpStatus.OK);
     }
 }
 

@@ -1,3 +1,4 @@
+/*
 package com.homedecor.rest.entity;
 
 import javax.persistence.*;
@@ -41,3 +42,4 @@ public class Order_Item {
     }
 
 }
+*/

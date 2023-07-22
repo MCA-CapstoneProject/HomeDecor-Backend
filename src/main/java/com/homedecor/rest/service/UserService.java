@@ -8,9 +8,14 @@ import java.util.List;
 
 public interface UserService {
     List<UserDto> getAllUsers();
+
     UserDto findByUserId(Long userId);
+
     BaseResponse createOrUpdateUser(UserDto userDto);
+
     BaseResponse deleteUserById(Long userId);
+
+    UserDto findByUserNameAndPassword(String userName,String email, String password);
 
 
     boolean existsByUsername(String username);

@@ -1,3 +1,4 @@
+/*
 package com.homedecor.rest.entity;
 
 import javax.persistence.*;
@@ -53,3 +54,4 @@ public class Payment {
     }
 
 }
+*/

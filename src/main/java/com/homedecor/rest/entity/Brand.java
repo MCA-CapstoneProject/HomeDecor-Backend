@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -21,17 +20,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-
-
 
 @Entity
 @Table(name = "brand")
 public class Brand implements java.io.Serializable {
 
-    private Integer id;
+    private Integer brandId;
     private User userByModifiedBy;
     private User userByCreatedBy;
     private String brandName;
@@ -64,12 +58,12 @@ public class Brand implements java.io.Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    public Integer getId() {
-        return this.id;
+    public Integer getBrandId() {
+        return this.brandId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setBrandId(Integer brandId) {
+        this.brandId = brandId;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
