@@ -2,6 +2,9 @@ package com.homedecor.rest.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "user",
@@ -14,7 +17,7 @@ import javax.validation.constraints.Size;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "user_id")
     private Long userId;
 
@@ -42,6 +45,57 @@ public class User {
 
     @Column(name = "address")
     private String address;
+
+    private Set<Shipment> shipments = new HashSet<Shipment>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    public Set<Shipment> getShipment() {
+        return this.shipments;
+    }
+    public void setShipment(Set<Shipment> shipment) {
+        this.shipments = shipment;
+    }
+
+    private Set<Order> orders = new HashSet<Order>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    public Set<Order> getOrders() {
+        return this.orders;
+    }
+    public void setOrders(Set<Order> order) {
+        this.orders = order;
+    }
+
+    private Set<Cart> cart_items = new HashSet<Cart>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    public Set<Cart> getCartItem() {
+        return this.cart_items;
+    }
+
+    public void setCartItem(Set<Cart> cart) {
+        this.cart_items = cart;
+    }
+
+    private Set<Wishlist> wishlisted = new HashSet<Wishlist>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    public Set<Wishlist> getWishlisted() {
+        return this.wishlisted;
+    }
+    public void setWishlisted(Set<Wishlist> wishlist) {
+        this.wishlisted = wishlist;
+    }
+
+    private Set<Payment> payments = new HashSet<Payment>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    public Set<Payment> getPayments() {
+        return this.payments;
+    }
+    public void setPayments(Set<Payment> payment) {
+        this.payments = payment;
+    }
 
     public Long getUserId() {
         return userId;

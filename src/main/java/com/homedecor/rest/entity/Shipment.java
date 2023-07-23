@@ -1,10 +1,13 @@
-/*
+
 package com.homedecor.rest.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(name = "shipment")
 public class Shipment {
 
     @Id
@@ -12,7 +15,8 @@ public class Shipment {
     @Column(name="shipment_id")
     private Long shipment_id;
 
-    @Column(name="shipment_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="shipment_date", length = 19)
     private Date shipment_date;
 
     @Column(name="address")
@@ -29,6 +33,26 @@ public class Shipment {
 
     @Column(name="zip_code")
     private Integer zip_code;
+
+    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    public User getUser() {
+        return this.user;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    private Set<Order> orders = new HashSet<Order>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "shipment")
+    public Set<Order> getOrders() {
+        return this.orders;
+    }
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
 
     public Long getShipmentId() {
         return shipment_id;
@@ -84,4 +108,3 @@ public class Shipment {
         this.zip_code = zipCode;
     }
 }
-*/

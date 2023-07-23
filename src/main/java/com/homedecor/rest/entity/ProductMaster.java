@@ -217,5 +217,44 @@ public class ProductMaster implements java.io.Serializable {
         this.tags = tags;
     }
 
+    private Set<Cart> cart_items1 = new HashSet<Cart>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    public Set<Cart> getCartItems() {
+        return this.cart_items1;
+    }
+    public void setCartItems(Set<Cart> items) {
+        this.cart_items1 = items;
+    }
+
+    private Set<Wishlist> wishlist_items = new HashSet<Wishlist>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    public Set<Wishlist> getWishlistItems() {
+        return this.wishlist_items;
+    }
+    public void setWishlistItems(Set<Wishlist> items) {
+        this.wishlist_items = items;
+    }
+
+    private Set<Order_Item> order_items = new HashSet<Order_Item>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    public Set<Order_Item> getOrderedItems() {
+        return this.order_items;
+    }
+    public void setOrderedItems(Set<Order_Item> items) {
+        this.order_items = items;
+    }
+
+    private Set<Seller> seller = new HashSet<Seller>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    public Set<Seller> getSeller() {
+        return this.seller;
+    }
+    public void setSeller(Set<Seller> items) {
+        this.seller = items;
+    }
 
 }

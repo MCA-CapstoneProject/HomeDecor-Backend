@@ -1,17 +1,21 @@
-/*
 package com.homedecor.rest.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-public class Payment {
+@Table(name = "payment")
+public class Payment  implements java.io.Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name="payment_id")
     private Long payment_id;
 
-    @Column(name="payment_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="payment_date",length=19)
     private Date payment_date;
 
     @Column(name="payment_method")
@@ -20,6 +24,25 @@ public class Payment {
     @Column(name="amount")
     private Long amount;
 
+    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    public User getUser() {
+        return this.user;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    private Set<Order> orders = new HashSet<Order>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "payment")
+    public Set<Order> getOrders() {
+        return this.orders;
+    }
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
 
     public Long getPaymentId() {
         return payment_id;
@@ -54,4 +77,4 @@ public class Payment {
     }
 
 }
-*/
+

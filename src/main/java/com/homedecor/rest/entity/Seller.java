@@ -1,15 +1,15 @@
-/*
 package com.homedecor.rest.entity;
 
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "seller")
-public class Seller {
+public class Seller  implements java.io.Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "seller_id")
     private Long sellerId;
 
@@ -33,6 +33,16 @@ public class Seller {
 
     @Column(name = "brand_name")
     private String brandName;
+
+    private ProductMaster product;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    public ProductMaster getProduct() {
+        return this.product;
+    }
+    public void setProduct(ProductMaster product) {
+        this.product = product;
+    }
 
     public Long getSellerId() {
         return sellerId;
@@ -91,4 +101,3 @@ public class Seller {
 
 
 }
-*/

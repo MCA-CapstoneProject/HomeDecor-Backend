@@ -1,22 +1,64 @@
-/*
 package com.homedecor.rest.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-public class Order {
+@Table(name="orders")
+public class Order  implements java.io.Serializable{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name="order_id")
     private Long order_id;
 
-    @Column(name="order_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name="order_date", length = 19)
     private Date order_date;
 
     @Column(name="total_price")
     private Long total_price;
 
+    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    public User getUser() {
+        return this.user;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    private Payment payment;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "payment_id")
+    public Payment getPayment() {
+        return this.payment;
+    }
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    private Shipment shipment;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shipment_id")
+    public Shipment getShipment() {
+        return this.shipment;
+    }
+    public void setShipment(Shipment shipment) {
+        this.shipment = shipment;
+    }
+    private Set<Order_Item> order_items = new HashSet<Order_Item>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    public Set<Order_Item> getOrderItems() {
+        return this.order_items;
+    }
+    public void setOrderItems(Set<Order_Item> order_items) {
+        this.order_items = order_items;
+    }
 
     public Long getOrderId() {
         return order_id;
@@ -42,4 +84,4 @@ public class Order {
         this.total_price = total_price;
     }
 
-}*/
+}
