@@ -24,8 +24,8 @@ public class Payment  implements java.io.Serializable{
     @Column(name="amount")
     private Long amount;
 
-    private User user;
     @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
     @JoinColumn(name = "user_id")
     public User getUser() {
         return this.user;
@@ -34,9 +34,8 @@ public class Payment  implements java.io.Serializable{
         this.user = user;
     }
 
-    private Set<Order> orders = new HashSet<Order>(0);
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "payment")
+    private Set<Order> orders = new HashSet<Order>(0);
     public Set<Order> getOrders() {
         return this.orders;
     }

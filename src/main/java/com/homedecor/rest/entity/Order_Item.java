@@ -17,8 +17,8 @@ public class Order_Item  implements java.io.Serializable{
     @Column(name="price")
     private Long price;
 
-    private Order order;
     @ManyToOne(fetch = FetchType.LAZY)
+    private Order order;
     @JoinColumn(name = "order_id")
     public Order getOrder() {
         return this.order;
@@ -27,8 +27,8 @@ public class Order_Item  implements java.io.Serializable{
         this.order = order;
     }
 
-    private ProductMaster product;
     @ManyToOne(fetch = FetchType.LAZY)
+    private ProductMaster product;
     @JoinColumn(name = "product_id")
     public ProductMaster getProduct() {
         return this.product;

@@ -21,8 +21,8 @@ public class Order  implements java.io.Serializable{
     @Column(name="total_price")
     private Long total_price;
 
-    private User user;
     @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
     @JoinColumn(name = "user_id")
     public User getUser() {
         return this.user;
@@ -31,8 +31,8 @@ public class Order  implements java.io.Serializable{
         this.user = user;
     }
 
-    private Payment payment;
     @ManyToOne(fetch = FetchType.LAZY)
+    private Payment payment;
     @JoinColumn(name = "payment_id")
     public Payment getPayment() {
         return this.payment;
@@ -41,8 +41,8 @@ public class Order  implements java.io.Serializable{
         this.payment = payment;
     }
 
-    private Shipment shipment;
     @ManyToOne(fetch = FetchType.LAZY)
+    private Shipment shipment;
     @JoinColumn(name = "shipment_id")
     public Shipment getShipment() {
         return this.shipment;
@@ -50,9 +50,9 @@ public class Order  implements java.io.Serializable{
     public void setShipment(Shipment shipment) {
         this.shipment = shipment;
     }
-    private Set<Order_Item> order_items = new HashSet<Order_Item>(0);
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+    private Set<Order_Item> order_items = new HashSet<Order_Item>(0);
     public Set<Order_Item> getOrderItems() {
         return this.order_items;
     }

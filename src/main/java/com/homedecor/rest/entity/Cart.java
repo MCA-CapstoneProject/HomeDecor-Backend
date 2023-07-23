@@ -1,10 +1,14 @@
 package com.homedecor.rest.entity;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "cart")
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "cart")
 public class Cart  implements java.io.Serializable{
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -14,9 +18,8 @@ public class Cart  implements java.io.Serializable{
     @Column(name="quantity")
     private Integer quantity;
 
-
-    private User user;
     @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
     @JoinColumn(name = "user_id")
     public User getUser() {
         return this.user;
@@ -25,8 +28,8 @@ public class Cart  implements java.io.Serializable{
         this.user = user;
     }
 
-    private ProductMaster product;
     @ManyToOne(fetch = FetchType.LAZY)
+    private ProductMaster product;
     @JoinColumn(name = "product_id")
     public ProductMaster getProduct() {
         return this.product;

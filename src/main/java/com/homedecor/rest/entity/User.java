@@ -1,5 +1,7 @@
 package com.homedecor.rest.entity;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
@@ -14,6 +16,8 @@ import static javax.persistence.GenerationType.IDENTITY;
                 @UniqueConstraint(columnNames = {"email"})
         }
 )
+@Cacheable
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "user")
 public class User {
 
     @Id
@@ -46,9 +50,8 @@ public class User {
     @Column(name = "address")
     private String address;
 
-    private Set<Shipment> shipments = new HashSet<Shipment>(0);
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Shipment> shipments = new HashSet<Shipment>(0);
     public Set<Shipment> getShipment() {
         return this.shipments;
     }
@@ -56,9 +59,8 @@ public class User {
         this.shipments = shipment;
     }
 
-    private Set<Order> orders = new HashSet<Order>(0);
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Order> orders = new HashSet<Order>(0);
     public Set<Order> getOrders() {
         return this.orders;
     }
@@ -66,9 +68,9 @@ public class User {
         this.orders = order;
     }
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private Set<Cart> cart_items = new HashSet<Cart>(0);
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     public Set<Cart> getCartItem() {
         return this.cart_items;
     }
@@ -77,9 +79,8 @@ public class User {
         this.cart_items = cart;
     }
 
-    private Set<Wishlist> wishlisted = new HashSet<Wishlist>(0);
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Wishlist> wishlisted = new HashSet<Wishlist>(0);
     public Set<Wishlist> getWishlisted() {
         return this.wishlisted;
     }
@@ -87,9 +88,8 @@ public class User {
         this.wishlisted = wishlist;
     }
 
-    private Set<Payment> payments = new HashSet<Payment>(0);
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<Payment> payments = new HashSet<Payment>(0);
     public Set<Payment> getPayments() {
         return this.payments;
     }

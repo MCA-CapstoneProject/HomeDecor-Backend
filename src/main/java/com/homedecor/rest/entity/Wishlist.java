@@ -11,9 +11,8 @@ public class Wishlist  implements java.io.Serializable{
     @GeneratedValue(strategy = IDENTITY)
     @Column(name="wishlist_id")
     private Long wishlist_id;
-
-    private User user;
     @ManyToOne(fetch = FetchType.LAZY)
+    private User user;
     @JoinColumn(name = "user_id")
     public User getUser() {
         return this.user;

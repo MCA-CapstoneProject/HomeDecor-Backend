@@ -34,8 +34,8 @@ public class Seller  implements java.io.Serializable{
     @Column(name = "brand_name")
     private String brandName;
 
-    private ProductMaster product;
     @ManyToOne(fetch = FetchType.LAZY)
+    private ProductMaster product;
     @JoinColumn(name = "product_id")
     public ProductMaster getProduct() {
         return this.product;
@@ -97,7 +97,5 @@ public class Seller  implements java.io.Serializable{
     }
 
     public void setBrandName(String brandName) { this.brandName = brandName; }
-
-
 
 }
