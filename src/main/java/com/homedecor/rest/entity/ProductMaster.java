@@ -20,6 +20,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 
+import com.homedecor.rest.dto.SellerDto;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -32,22 +33,16 @@ public class ProductMaster implements java.io.Serializable {
 
     private Long productId;
     private Brand brand;
-    private User userByModifiedBy;
-    private User userByCreatedBy;
     private Category category;
     private String productName;
     private String description;
-    private Integer points;
-    private Integer minimum;
-    private Integer sortOrder;
+    private Integer ratings;
+    private Integer quantity;
     private Boolean status;
-    private Integer viewedCounter;
-    private Date createdOn;
-    private Date modifiedOn;
     private String productCode;
     private Double retailPrice;
-    private String tags;
     private Set<ProductImages> productImageses = new HashSet<ProductImages>(0);
+    private Seller seller;
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -71,26 +66,14 @@ public class ProductMaster implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "modified_by")
-    public User getUserByModifiedBy() {
-        return this.userByModifiedBy;
+    @JoinColumn(name = "seller")
+    public Seller getAddedBy() {
+        return this.seller;
     }
 
-    public void setUserByModifiedBy(User userByModifiedBy) {
-        this.userByModifiedBy = userByModifiedBy;
+    public void setAddedBy(Seller seller) {
+        this.seller = seller;
     }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by", nullable = false)
-    public User getUserByCreatedBy() {
-        return this.userByCreatedBy;
-    }
-
-    public void setUserByCreatedBy(User userByCreatedBy) {
-        this.userByCreatedBy = userByCreatedBy;
-    }
-
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
 
@@ -121,31 +104,22 @@ public class ProductMaster implements java.io.Serializable {
         this.description = description;
     }
 
-    @Column(name = "points")
-    public Integer getPoints() {
-        return this.points;
+    @Column(name = "ratings")
+    public Integer getRatings() {
+        return this.ratings;
     }
 
-    public void setPoints(Integer points) {
-        this.points = points;
+    public void setRatings(Integer rating) {
+        this.ratings = rating;
     }
 
-    @Column(name = "minimum")
-    public Integer getMinimum() {
-        return this.minimum;
+    @Column(name = "quantity")
+    public Integer getQuantity() {
+        return this.quantity;
     }
 
-    public void setMinimum(Integer minimum) {
-        this.minimum = minimum;
-    }
-
-    @Column(name = "sort_order")
-    public Integer getSortOrder() {
-        return this.sortOrder;
-    }
-
-    public void setSortOrder(Integer sortOrder) {
-        this.sortOrder = sortOrder;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     @Column(name = "status")
@@ -155,35 +129,6 @@ public class ProductMaster implements java.io.Serializable {
 
     public void setStatus(Boolean status) {
         this.status = status;
-    }
-
-    @Column(name = "viewed_counter")
-    public Integer getViewedCounter() {
-        return this.viewedCounter;
-    }
-
-    public void setViewedCounter(Integer viewedCounter) {
-        this.viewedCounter = viewedCounter;
-    }
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_on", length = 19)
-    public Date getCreatedOn() {
-        return this.createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "modified_on", length = 19)
-    public Date getModifiedOn() {
-        return this.modifiedOn;
-    }
-
-    public void setModifiedOn(Date modifiedOn) {
-        this.modifiedOn = modifiedOn;
     }
 
     @Column(name = "product_code", length = 55)
@@ -207,14 +152,6 @@ public class ProductMaster implements java.io.Serializable {
     }
     public void setRetailPrice(Double retailPrice) {
         this.retailPrice = retailPrice;
-    }
-    @Column(name = "tags")
-    public String getTags() {
-        return tags;
-    }
-
-    public void setTags(String tags) {
-        this.tags = tags;
     }
 
     private Set<Cart> cart_items1 = new HashSet<Cart>(0);
@@ -247,14 +184,5 @@ public class ProductMaster implements java.io.Serializable {
         this.order_items = items;
     }
 
-    private Set<Seller> seller = new HashSet<Seller>(0);
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    public Set<Seller> getSeller() {
-        return this.seller;
-    }
-    public void setSeller(Set<Seller> items) {
-        this.seller = items;
-    }
 
 }

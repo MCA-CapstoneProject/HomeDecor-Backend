@@ -45,7 +45,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
         UserDto userDto = userService.findByUserNameAndPassword(loginDto.getUsernameOrEmail(),loginDto.getUsernameOrEmail(),loginDto.getPassword());
         if (userDto==null) {
-            return new ResponseEntity<>("Username is invalid!", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Username is invalid!",  HttpStatus.BAD_REQUEST);
         }
         if(!userDto.getPassword().contentEquals(loginDto.getPassword())){
             throw new RecordNotFoundException("Invalid username or password");

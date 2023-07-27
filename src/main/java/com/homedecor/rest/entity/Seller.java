@@ -3,6 +3,9 @@ package com.homedecor.rest.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -33,16 +36,6 @@ public class Seller  implements java.io.Serializable{
 
     @Column(name = "brand_name")
     private String brandName;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private ProductMaster product;
-    @JoinColumn(name = "product_id")
-    public ProductMaster getProduct() {
-        return this.product;
-    }
-    public void setProduct(ProductMaster product) {
-        this.product = product;
-    }
 
     public Long getSellerId() {
         return sellerId;
@@ -97,5 +90,15 @@ public class Seller  implements java.io.Serializable{
     }
 
     public void setBrandName(String brandName) { this.brandName = brandName; }
+
+    private Set<ProductMaster> product = new HashSet<ProductMaster>(0);
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "seller")
+    public Set<ProductMaster> getProducts() {
+        return this.product;
+    }
+    public void setProducts(Set<ProductMaster> items) {
+        this.product = items;
+    }
 
 }

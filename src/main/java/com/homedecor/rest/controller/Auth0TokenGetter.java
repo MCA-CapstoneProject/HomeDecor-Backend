@@ -32,7 +32,6 @@ public class Auth0TokenGetter {
         if (response.isSuccess()) {
             JSONObject jsonResponse = new JSONObject(response.getBody());
             String accessToken = jsonResponse.getString("access_token");
-            System.out.println("Access Token: " + accessToken);
             return accessToken;
         } else {
             System.err.println("Failed to obtain access token. Status code: " + response.getStatus());
