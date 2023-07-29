@@ -28,15 +28,17 @@ public class Cart  implements java.io.Serializable{
         this.user = user;
     }
 
+    private ProductMaster productMaster;
     @ManyToOne(fetch = FetchType.LAZY)
-    private ProductMaster product;
     @JoinColumn(name = "product_id")
-    public ProductMaster getProduct() {
-        return this.product;
+    public ProductMaster getProductMaster() {
+        return this.productMaster;
     }
-    public void setProduct(ProductMaster product) {
-        this.product = product;
+
+    public void setProductMaster(ProductMaster productMaster) {
+        this.productMaster = productMaster;
     }
+
 
     public Long getCartId() {
         return cart_id;

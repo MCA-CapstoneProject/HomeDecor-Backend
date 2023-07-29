@@ -91,9 +91,8 @@ public class Seller  implements java.io.Serializable{
 
     public void setBrandName(String brandName) { this.brandName = brandName; }
 
-    private Set<ProductMaster> product = new HashSet<ProductMaster>(0);
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "seller")
+    private Set<ProductMaster> product = new HashSet<ProductMaster>(0);
     public Set<ProductMaster> getProducts() {
         return this.product;
     }

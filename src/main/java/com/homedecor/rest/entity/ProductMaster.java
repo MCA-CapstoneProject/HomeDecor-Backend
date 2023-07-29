@@ -66,14 +66,15 @@ public class ProductMaster implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seller")
-    public Seller getAddedBy() {
+    @JoinColumn(name = "seller_id")
+
+    public Seller getSeller() {
         return this.seller;
     }
-
-    public void setAddedBy(Seller seller) {
+    public void setSeller(Seller seller) {
         this.seller = seller;
     }
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
 
@@ -154,34 +155,33 @@ public class ProductMaster implements java.io.Serializable {
         this.retailPrice = retailPrice;
     }
 
-    private Set<Cart> cart_items1 = new HashSet<Cart>(0);
+    private Set<Cart> cartItems = new HashSet<Cart>(0);
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "productMaster")
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     public Set<Cart> getCartItems() {
-        return this.cart_items1;
+        return this.cartItems;
     }
     public void setCartItems(Set<Cart> items) {
-        this.cart_items1 = items;
+        this.cartItems = items;
     }
 
-    private Set<Wishlist> wishlist_items = new HashSet<Wishlist>(0);
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
+    private Set<Wishlist> wishlistItems = new HashSet<Wishlist>(0);
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "productMaster")
     public Set<Wishlist> getWishlistItems() {
-        return this.wishlist_items;
+        return this.wishlistItems;
     }
     public void setWishlistItems(Set<Wishlist> items) {
-        this.wishlist_items = items;
+        this.wishlistItems = items;
     }
 
-    private Set<Order_Item> order_items = new HashSet<Order_Item>(0);
+    private Set<Order_Item> order_Item = new HashSet<Order_Item>(0);
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "productMaster")
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
-    public Set<Order_Item> getOrderedItems() {
-        return this.order_items;
+    public Set<Order_Item> getOrder_Item() {
+        return this.order_Item;
     }
-    public void setOrderedItems(Set<Order_Item> items) {
-        this.order_items = items;
+    public void setOrder_Item(Set<Order_Item> items) {
+        this.order_Item = items;
     }
 
 
