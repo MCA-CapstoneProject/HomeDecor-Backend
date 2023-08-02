@@ -18,6 +18,16 @@ public class UserDto {
 
     private String address;
 
+    public RoleDto getRoleDto() {
+        return roleDto;
+    }
+
+    public void setRoleDto(RoleDto roleDto) {
+        this.roleDto = roleDto;
+    }
+
+    private RoleDto roleDto;
+
     public Long getUserId() {
         return userId;
     }

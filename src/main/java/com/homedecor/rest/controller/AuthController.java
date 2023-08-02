@@ -1,7 +1,9 @@
 package com.homedecor.rest.controller;
 
 import com.homedecor.rest.common.exceptions.RecordNotFoundException;
+import com.homedecor.rest.dto.CategoryDto;
 import com.homedecor.rest.dto.LoginDto;
+import com.homedecor.rest.dto.LoginResponseDto;
 import com.homedecor.rest.dto.UserDto;
 import com.homedecor.rest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +38,9 @@ public class AuthController {
             return new ResponseEntity<>("Email is already taken!", HttpStatus.BAD_REQUEST);
         }
 
+
         userService.createOrUpdateUser(userDto);
+
 
         return new ResponseEntity<>("User registered successfully", HttpStatus.OK);
 
@@ -50,7 +54,14 @@ public class AuthController {
         if(!userDto.getPassword().contentEquals(loginDto.getPassword())){
             throw new RecordNotFoundException("Invalid username or password");
         }
-        return new ResponseEntity<>(Auth0TokenGetter.getAccessToken(), HttpStatus.OK);
+        LoginResponseDto loginResponseDto =new LoginResponseDto();
+        loginResponseDto.setToken(Auth0TokenGetter.getAccessToken());
+        loginResponseDto.setUserName(userDto.getUserName());
+        if(userDto.getRoleDto()!=null) {
+            loginResponseDto.setRoleId(userDto.getRoleDto().getRoleId());
+            loginResponseDto.setRoleName(userDto.getRoleDto().getName());
+        }
+        return new ResponseEntity<LoginResponseDto>(loginResponseDto, HttpStatus.OK);
     }
 }
 

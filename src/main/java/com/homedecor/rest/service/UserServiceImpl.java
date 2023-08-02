@@ -7,6 +7,8 @@ import com.homedecor.rest.common.exceptions.CustomDataIntegrityViolationExceptio
 import com.homedecor.rest.common.exceptions.RecordNotFoundException;
 import com.homedecor.rest.common.messages.BaseResponse;
 import com.homedecor.rest.common.messages.CustomMessage;
+import com.homedecor.rest.dto.RoleDto;
+import com.homedecor.rest.entity.Role;
 import com.homedecor.rest.entity.User;
 import com.homedecor.rest.repo.UserDao;
 import org.springframework.beans.BeanUtils;
@@ -80,12 +82,22 @@ public class UserServiceImpl implements UserService{
     private UserDto copyEntityToDto(User user) {
         UserDto userDto = new UserDto();
         BeanUtils.copyProperties(user, userDto);
+        if (user.getRole() != null) {
+            RoleDto roleDto = new RoleDto();
+            BeanUtils.copyProperties(user.getRole(), roleDto);
+            userDto.setRoleDto(roleDto);
+        }
         return userDto;
     }
 
     private User copyDtoToEntity(UserDto userDto) {
         User user = new User();
         BeanUtils.copyProperties(userDto, user);
+        if (userDto.getRoleDto() != null) {
+            Role role = new Role();
+            BeanUtils.copyProperties(userDto.getRoleDto(), role);
+            user.setRole(role);
+        }
         return user;
     }
 

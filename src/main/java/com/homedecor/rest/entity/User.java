@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -49,6 +50,22 @@ public class User {
 
     @Column(name = "address")
     private String address;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+
+/*
+
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Shipment> shipments = new HashSet<Shipment>(0);
@@ -96,6 +113,7 @@ public class User {
     public void setPayments(Set<Payment> payment) {
         this.payments = payment;
     }
+*/
 
     public Long getUserId() {
         return userId;
