@@ -4,9 +4,14 @@ import com.homedecor.rest.common.exceptions.CustomDataIntegrityViolationExceptio
 import com.homedecor.rest.common.exceptions.RecordNotFoundException;
 import com.homedecor.rest.common.messages.BaseResponse;
 import com.homedecor.rest.common.messages.CustomMessage;
+import com.homedecor.rest.dto.BrandDto;
+import com.homedecor.rest.dto.CategoryDto;
 import com.homedecor.rest.dto.ProductMasterDto;
+import com.homedecor.rest.dto.UserDto;
+import com.homedecor.rest.entity.Brand;
+import com.homedecor.rest.entity.Category;
 import com.homedecor.rest.entity.ProductMaster;
-import com.homedecor.rest.repo.ProductMasterDao;
+import com.homedecor.rest.entity.User;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -58,16 +63,51 @@ public class ProductMasterServiceImpl implements ProductMasterService {
         return new BaseResponse(CustomMessage.USER_SAVE_SUCCESS_MESSAGE);
     }
 
-    private ProductMasterDto copyEntityToDto(ProductMaster ProductMaster) {
+    private ProductMasterDto copyEntityToDto(ProductMaster productMaster) {
         ProductMasterDto ProductMasterDto = new ProductMasterDto();
-        BeanUtils.copyProperties(ProductMaster, ProductMasterDto);
+        BeanUtils.copyProperties(productMaster, ProductMasterDto);
+
+        if (productMaster.getCategory() != null) {
+            CategoryDto categoryDto = new CategoryDto();
+            categoryDto.setCategoryId(productMaster.getCategory().getCategoryId());
+            categoryDto.setCategoryName(productMaster.getCategory().getCategoryName());
+            ProductMasterDto.setCategoryDto(categoryDto);
+        }
+        if (productMaster.getBrand() != null) {
+            BrandDto brandDto = new BrandDto();
+            brandDto.setBrandId(productMaster.getBrand().getBrandId());
+            brandDto.setBrandName(productMaster.getBrand().getBrandName());
+            ProductMasterDto.setBrandDto(brandDto);
+        }
+        if (productMaster.getUserId() != null) {
+            UserDto userDto = new UserDto();
+            userDto.setUserId(productMaster.getUserId().getUserId());
+            userDto.setUserName(productMaster.getUserId().getUserName());
+            ProductMasterDto.setUserId(userDto);
+        }
         return ProductMasterDto;
     }
 
-    private ProductMaster copyDtoToEntity(ProductMasterDto ProductMasterDto) {
-        ProductMaster ProductMaster = new ProductMaster();
-        BeanUtils.copyProperties(ProductMasterDto, ProductMaster);
-        return ProductMaster;
+    private ProductMaster copyDtoToEntity(ProductMasterDto productMasterDto) {
+        ProductMaster productMaster = new ProductMaster();
+        BeanUtils.copyProperties(productMasterDto, productMaster);
+        if (productMasterDto.getCategoryDto() != null) {
+            Category category = new Category();
+            category.setCategoryId(productMasterDto.getCategoryDto().getCategoryId());
+            productMaster.setCategory(category);
+        }
+        if (productMasterDto.getBrandDto() != null) {
+            Brand brand = new Brand();
+            brand.setBrandId(productMasterDto.getBrandDto().getBrandId());
+            productMaster.setBrand(brand);
+        }
+        if (productMasterDto.getUserId() != null) {
+            User user = new User();
+            user.setUserId(productMasterDto.getUserId().getUserId());
+            productMaster.setUserId(user);
+        }
+
+        return productMaster;
     }
 
 }

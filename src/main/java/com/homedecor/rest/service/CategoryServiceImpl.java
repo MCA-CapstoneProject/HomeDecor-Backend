@@ -4,12 +4,8 @@ import com.homedecor.rest.common.exceptions.CustomDataIntegrityViolationExceptio
 import com.homedecor.rest.common.exceptions.RecordNotFoundException;
 import com.homedecor.rest.common.messages.BaseResponse;
 import com.homedecor.rest.common.messages.CustomMessage;
-import com.homedecor.rest.dto.CategoryDto;
-import com.homedecor.rest.dto.UserDto;
 import com.homedecor.rest.entity.Category;
-import com.homedecor.rest.entity.User;
 import com.homedecor.rest.repo.CategoryDao;
-import com.homedecor.rest.repo.CategoryRepo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -26,12 +22,12 @@ public class CategoryServiceImpl implements CategoryService {
     CategoryDao categoryDao;
 
     @Override
-    public List<CategoryDto> getAllCategories() {
+    public List<com.homedecor.rest.dto.CategoryDto> getAllCategories() {
         return categoryDao.findAllCategories().stream().map(this::copyEntityToDto).collect(Collectors.toList());
     }
 
     @Override
-    public CategoryDto findByCategoryId(Long id) {
+    public com.homedecor.rest.dto.CategoryDto findByCategoryId(Long id) {
         if (categoryDao.existsById(id)) {
             Category category = categoryDao.findById(id);
             return copyEntityToDto(category);
@@ -41,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public BaseResponse createOrUpdateCategory(CategoryDto categoryDto) {
+    public BaseResponse createOrUpdateCategory(com.homedecor.rest.dto.CategoryDto categoryDto) {
         try {
             Category category = copyDtoToEntity(categoryDto);
             categoryDao.save(category);
@@ -61,13 +57,13 @@ public class CategoryServiceImpl implements CategoryService {
         return new BaseResponse(CustomMessage.USER_DELETE_SUCCESS_MESSAGE);
     }
 
-    private CategoryDto copyEntityToDto(Category category) {
-        CategoryDto categoryDto = new CategoryDto();
+    private com.homedecor.rest.dto.CategoryDto copyEntityToDto(Category category) {
+        com.homedecor.rest.dto.CategoryDto categoryDto = new com.homedecor.rest.dto.CategoryDto();
         BeanUtils.copyProperties(category, categoryDto);
         return categoryDto;
     }
 
-    private Category copyDtoToEntity(CategoryDto categoryDto) {
+    private Category copyDtoToEntity(com.homedecor.rest.dto.CategoryDto categoryDto) {
         Category category = new Category();
         BeanUtils.copyProperties(categoryDto, category);
         return category;

@@ -1,6 +1,5 @@
 package com.homedecor.rest.entity;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
@@ -10,43 +9,32 @@ import javax.persistence.GeneratedValue;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
-import javax.persistence.Cacheable;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-
-import com.homedecor.rest.dto.SellerDto;
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 
 @Entity
 @Table(name = "product_master")
-@Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "ProductMaster")
 public class ProductMaster implements java.io.Serializable {
-
     private Long productId;
     private Brand brand;
     private Category category;
     private String productName;
     private String description;
     private Integer ratings;
-    private Integer quantity;
     private Boolean status;
     private String productCode;
-    private Double retailPrice;
+    private Double price;
     private Set<ProductImages> productImageses = new HashSet<ProductImages>(0);
-    private Seller seller;
+    private Set<ProductItems> productItemses = new HashSet<ProductItems>(0);
+    private User userId;
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "product_id", unique = true, nullable = false)
     public Long getProductId() {
         return this.productId;
     }
@@ -66,16 +54,6 @@ public class ProductMaster implements java.io.Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "seller_id")
-
-    public Seller getSeller() {
-        return this.seller;
-    }
-    public void setSeller(Seller seller) {
-        this.seller = seller;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
 
     public Category getCategory() {
@@ -87,7 +65,6 @@ public class ProductMaster implements java.io.Serializable {
     }
 
     @Column(name = "product_name", length = 155)
-
     public String getProductName() {
         return this.productName;
     }
@@ -114,15 +91,6 @@ public class ProductMaster implements java.io.Serializable {
         this.ratings = rating;
     }
 
-    @Column(name = "quantity")
-    public Integer getQuantity() {
-        return this.quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
     @Column(name = "status")
     public Boolean getStatus() {
         return this.status;
@@ -147,13 +115,34 @@ public class ProductMaster implements java.io.Serializable {
     public void setProductImageses(Set<ProductImages> productImageses) {
         this.productImageses = productImageses;
     }
-    @Column(name = "retail_price", precision = 22, scale = 0)
-    public Double getRetailPrice() {
-        return retailPrice;
+    @Column(name = "price", precision = 22, scale = 0)
+    public Double getPrice() {
+        return price;
     }
-    public void setRetailPrice(Double retailPrice) {
-        this.retailPrice = retailPrice;
+    public void setPrice(Double price) {
+        this.price = price;
     }
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "productMaster")
+    public Set<ProductItems> getProductItemses() {
+        return this.productItemses;
+    }
+
+    public void setProductItemses(Set<ProductItems> productItemses) {
+        this.productItemses = productItemses;
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
+    }
+    /*
 
     private Set<Cart> cartItems = new HashSet<Cart>(0);
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "productMaster")
@@ -184,5 +173,6 @@ public class ProductMaster implements java.io.Serializable {
         this.order_Item = items;
     }
 
+*/
 
 }

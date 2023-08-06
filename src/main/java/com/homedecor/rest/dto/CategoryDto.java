@@ -16,8 +16,6 @@ public class CategoryDto {
     private Long parrentId;
     private String metaData;
     private String description;
-    private Date createdOn;
-    private Date modifiedOn;
     private String image;
 
     public Long getCategoryId() {
@@ -90,22 +88,6 @@ public class CategoryDto {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Date getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public Date getModifiedOn() {
-        return modifiedOn;
-    }
-
-    public void setModifiedOn(Date modifiedOn) {
-        this.modifiedOn = modifiedOn;
     }
 
     public String getImage() {

@@ -17,8 +17,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 
 @Entity
@@ -33,8 +31,6 @@ public class Brand implements java.io.Serializable {
     private String logo;
     private Integer sortOrder;
     private String website;
-    private Date createdOn;
-    private Date modifiedOn;
     private Set<ProductMaster> productMasters = new HashSet<ProductMaster>(0);
 
     public Brand() {
@@ -50,14 +46,12 @@ public class Brand implements java.io.Serializable {
         this.logo = logo;
         this.sortOrder = sortOrder;
         this.website = website;
-        this.createdOn = createdOn;
-        this.modifiedOn = modifiedOn;
         this.productMasters = productMasters;
     }
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "brand_id", unique = true, nullable = false)
     public Integer getBrandId() {
         return this.brandId;
     }
@@ -131,28 +125,7 @@ public class Brand implements java.io.Serializable {
         this.website = website;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_on", length = 19)
-    public Date getCreatedOn() {
-        return this.createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "modified_on", length = 19)
-    public Date getModifiedOn() {
-        return this.modifiedOn;
-    }
-
-    public void setModifiedOn(Date modifiedOn) {
-        this.modifiedOn = modifiedOn;
-    }
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "brand")
-
     public Set<ProductMaster> getProductMasters() {
         return this.productMasters;
     }

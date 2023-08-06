@@ -9,32 +9,32 @@ import java.util.List;
 @Repository
 public class BrandDaoImpl implements BrandDao {
     @Autowired
-    BrandRepo BrandRepo;
+    BrandRepo brandRepo;
 
 
     @Override
     public List<Brand> findAllBrands() {
-        return BrandRepo.findAll();
+        return brandRepo.findAll();
     }
 
     @Override
     public Brand findById(Long id) {
-        return BrandRepo.findByBrandId(id);
+        return brandRepo.findByBrandId(id);
     }
 
     @Override
     public boolean existsById(Long id) {
-        return BrandRepo.existsById(id);
+        return brandRepo.existsById(id);
     }
 
     @Override
-    public void save(Brand Brand) {
-         BrandRepo.save(Brand);
+    public void save(Brand brand) {
+        brandRepo.save(brand);
     }
 
     @Override
     public void deleteById(Long id) {
-        BrandRepo.deleteById(id);
+        brandRepo.deleteById(id);
     }
 }
 

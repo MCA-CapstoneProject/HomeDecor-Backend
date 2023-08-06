@@ -10,7 +10,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Table(name = "product_images")
 public class ProductImages implements java.io.Serializable {
 
-    private Long id;
+    private Long productImagesId;
     private ProductMaster productMaster;
     private String imageName;
     private String imagePath;
@@ -33,13 +33,13 @@ public class ProductImages implements java.io.Serializable {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    public Long getId() {
-        return this.id;
+    @Column(name = "productImagesId", unique = true, nullable = false)
+    public Long getProductImagesId() {
+        return this.productImagesId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setProductImagesId(Long productImagesId) {
+        this.productImagesId = productImagesId;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
