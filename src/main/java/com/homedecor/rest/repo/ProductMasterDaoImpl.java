@@ -1,6 +1,7 @@
 package com.homedecor.rest.repo;
 
 import com.homedecor.rest.entity.ProductMaster;
+import com.homedecor.rest.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -35,6 +36,13 @@ public class ProductMasterDaoImpl implements ProductMasterDao {
     @Override
     public void deleteById(Long id) {
         productMasterRepo.deleteById(id);
+    }
+
+    @Override
+    public List<ProductMaster> findByuserId(Long userId) {
+        User user= new User();
+        user.setUserId(userId);
+        return productMasterRepo.findByUserId(user);
     }
 }
 

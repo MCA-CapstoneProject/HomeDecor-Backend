@@ -63,6 +63,11 @@ public class ProductMasterServiceImpl implements ProductMasterService {
         return new BaseResponse(CustomMessage.USER_SAVE_SUCCESS_MESSAGE);
     }
 
+    @Override
+    public List<ProductMasterDto> getProductByUserId(Long userId) {
+       return ProductMasterDao.findByuserId(userId).stream().map(this::copyEntityToDto).collect(Collectors.toList());
+    }
+
     private ProductMasterDto copyEntityToDto(ProductMaster productMaster) {
         ProductMasterDto ProductMasterDto = new ProductMasterDto();
         BeanUtils.copyProperties(productMaster, ProductMasterDto);

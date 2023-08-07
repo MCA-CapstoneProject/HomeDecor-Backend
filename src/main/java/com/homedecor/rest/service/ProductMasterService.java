@@ -13,4 +13,6 @@ public interface ProductMasterService {
     BaseResponse deleteProductById(Long id);
 
     BaseResponse createOrUpdateProduct(ProductMasterDto productMasterDto);
+
+    List<ProductMasterDto> getProductByUserId(Long userId);
 }

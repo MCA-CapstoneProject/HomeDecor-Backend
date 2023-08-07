@@ -3,6 +3,7 @@ package com.homedecor.rest.repo;
 
 import com.homedecor.rest.entity.ProductMaster;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface ProductMasterDao {
@@ -15,5 +16,7 @@ public interface ProductMasterDao {
     void save(ProductMaster ProductMaster);
 
     void deleteById(Long id);
+
+    List<ProductMaster> findByuserId(Long userId);
 }
 
