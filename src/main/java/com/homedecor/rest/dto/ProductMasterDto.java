@@ -14,7 +14,10 @@ public class ProductMasterDto {
     private Boolean status;
     private String productCode;
     private Double price;
+    private Integer quantity;
+    private String size;
     private UserDto userId;
+
 
 
 
@@ -88,6 +91,22 @@ public class ProductMasterDto {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 
     public UserDto getUserId() {

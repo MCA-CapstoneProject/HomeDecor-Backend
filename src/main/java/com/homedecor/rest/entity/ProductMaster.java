@@ -28,8 +28,9 @@ public class ProductMaster implements java.io.Serializable {
     private Boolean status;
     private String productCode;
     private Double price;
+    private Integer quantity;
+    private String size;
     private Set<ProductImages> productImageses = new HashSet<ProductImages>(0);
-    private Set<ProductItems> productItemses = new HashSet<ProductItems>(0);
     private User userId;
 
     @Id
@@ -48,14 +49,12 @@ public class ProductMaster implements java.io.Serializable {
     public Brand getBrand() {
         return this.brand;
     }
-
     public void setBrand(Brand brand) {
         this.brand = brand;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
-
     public Category getCategory() {
         return this.category;
     }
@@ -122,15 +121,21 @@ public class ProductMaster implements java.io.Serializable {
     public void setPrice(Double price) {
         this.price = price;
     }
-
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "productMaster")
-    public Set<ProductItems> getProductItemses() {
-        return this.productItemses;
+    @Column(name = "quantity", length = 55)
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setProductItemses(Set<ProductItems> productItemses) {
-        this.productItemses = productItemses;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+    @Column(name = "size", length = 55)
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -141,6 +146,15 @@ public class ProductMaster implements java.io.Serializable {
 
     public void setUserId(User userId) {
         this.userId = userId;
+    }
+
+    private Set<Wishlist> wishlistItems = new HashSet<Wishlist>(0);
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "productMaster")
+    public Set<Wishlist> getWishlistItems() {
+        return this.wishlistItems;
+    }
+    public void setWishlistItems(Set<Wishlist> items) {
+        this.wishlistItems = items;
     }
     /*
 
@@ -154,14 +168,7 @@ public class ProductMaster implements java.io.Serializable {
         this.cartItems = items;
     }
 
-    private Set<Wishlist> wishlistItems = new HashSet<Wishlist>(0);
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "productMaster")
-    public Set<Wishlist> getWishlistItems() {
-        return this.wishlistItems;
-    }
-    public void setWishlistItems(Set<Wishlist> items) {
-        this.wishlistItems = items;
-    }
+
 
     private Set<Order_Item> order_Item = new HashSet<Order_Item>(0);
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "productMaster")

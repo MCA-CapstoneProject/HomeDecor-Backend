@@ -1,44 +1,48 @@
+
 package com.homedecor.rest.entity;
 
 import javax.persistence.*;
+
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "wishlist")
-public class Wishlist  implements java.io.Serializable{
+public class Wishlist implements java.io.Serializable {
 
     @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name="wishlist_id")
-    private Long wishlist_id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
-    @JoinColumn(name = "user_id")
-    public User getUser() {
-        return this.user;
-    }
-    public void setUser(User user) {
-        this.user = user;
-    }
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "wishlist_id")
+    private Long wishlistId;
 
-    private ProductMaster productMaster;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User userId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
+    private ProductMaster productMaster;
+
+    public Long getWishlistId() {
+        return wishlistId;
+    }
+
+    public void setWishlistId(Long wishlistId) {
+        this.wishlistId = wishlistId;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
+    }
+
     public ProductMaster getProductMaster() {
-        return this.productMaster;
+        return productMaster;
     }
 
     public void setProductMaster(ProductMaster productMaster) {
         this.productMaster = productMaster;
     }
-
-    public Long getWishlistId() {
-        return wishlist_id;
-    }
-
-    public void setWishlistId(Long wishlistId) {
-        this.wishlist_id = wishlistId;
-    }
-
 }
-

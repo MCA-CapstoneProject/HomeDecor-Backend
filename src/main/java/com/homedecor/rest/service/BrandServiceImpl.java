@@ -55,7 +55,7 @@ public class BrandServiceImpl implements BrandService {
         } catch (DataIntegrityViolationException ex) {
             throw new CustomDataIntegrityViolationException(ex.getCause().getCause().getMessage());
         }
-        return new BaseResponse(CustomMessage.USER_SAVE_SUCCESS_MESSAGE);
+        return new BaseResponse(CustomMessage.BRAND_SAVE_SUCCESS_MESSAGE);
     }
 
     private BrandDto copyEntityToDto(Brand BrandMaster) {

@@ -44,7 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
         } catch (DataIntegrityViolationException ex) {
             throw new CustomDataIntegrityViolationException(ex.getCause().getCause().getMessage());
         }
-        return new BaseResponse(CustomMessage.USER_SAVE_SUCCESS_MESSAGE);
+        return new BaseResponse(CustomMessage.CATEGORY_SAVE_SUCCESS_MESSAGE);
     }
 
     @Override

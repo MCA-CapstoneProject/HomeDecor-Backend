@@ -57,7 +57,7 @@ public class ProductImagesServiceImpl implements ProductImagesService {
         } catch (DataIntegrityViolationException ex) {
             throw new CustomDataIntegrityViolationException(ex.getCause().getCause().getMessage());
         }
-        return new BaseResponse(CustomMessage.USER_SAVE_SUCCESS_MESSAGE);
+        return new BaseResponse(CustomMessage.PRODUCTIMAGES_SAVE_SUCCESS_MESSAGE);
     }
 
     private ProductImagesDto copyEntityToDto(ProductImages productImages) {

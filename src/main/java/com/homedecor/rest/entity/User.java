@@ -63,6 +63,17 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
+    @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
+    private Set<Wishlist> wishlisted;
+
+    public Set<Wishlist> getWishlisted() {
+        return wishlisted;
+    }
+
+    public void setWishlisted(Set<Wishlist> wishlisted) {
+        this.wishlisted = wishlisted;
+    }
+
 
 /*
 
@@ -96,14 +107,7 @@ public class User {
         this.cart_items = cart;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private Set<Wishlist> wishlisted = new HashSet<Wishlist>(0);
-    public Set<Wishlist> getWishlisted() {
-        return this.wishlisted;
-    }
-    public void setWishlisted(Set<Wishlist> wishlist) {
-        this.wishlisted = wishlist;
-    }
+
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Payment> payments = new HashSet<Payment>(0);

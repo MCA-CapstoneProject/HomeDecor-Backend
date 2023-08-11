@@ -4,20 +4,15 @@ import com.homedecor.rest.common.exceptions.CustomDataIntegrityViolationExceptio
 import com.homedecor.rest.common.exceptions.RecordNotFoundException;
 import com.homedecor.rest.common.messages.BaseResponse;
 import com.homedecor.rest.common.messages.CustomMessage;
-import com.homedecor.rest.dto.BrandDto;
-import com.homedecor.rest.dto.CategoryDto;
-import com.homedecor.rest.dto.ProductMasterDto;
-import com.homedecor.rest.dto.UserDto;
-import com.homedecor.rest.entity.Brand;
-import com.homedecor.rest.entity.Category;
-import com.homedecor.rest.entity.ProductMaster;
-import com.homedecor.rest.entity.User;
+import com.homedecor.rest.dto.*;
+import com.homedecor.rest.entity.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,13 +55,52 @@ public class ProductMasterServiceImpl implements ProductMasterService {
         } catch (DataIntegrityViolationException ex) {
             throw new CustomDataIntegrityViolationException(ex.getCause().getCause().getMessage());
         }
-        return new BaseResponse(CustomMessage.USER_SAVE_SUCCESS_MESSAGE);
+        return new BaseResponse(CustomMessage.PRODUCT_SAVE_SUCCESS_MESSAGE);
     }
 
     @Override
     public List<ProductMasterDto> getProductByUserId(Long userId) {
        return ProductMasterDao.findByuserId(userId).stream().map(this::copyEntityToDto).collect(Collectors.toList());
     }
+
+    @Override
+    public Wishlist saveWishlist(WishlistDto wishlistDto) {
+        Wishlist wishlist = new Wishlist();
+
+        User user = new User ();
+        user.setUserId(wishlistDto.getUserId());
+        ProductMaster product = new ProductMaster();
+        product.setProductId(wishlistDto.getProductId());
+        wishlist.setUserId(user);
+        wishlist.setProductMaster(product);
+
+        return ProductMasterDao.saveWishlist(wishlist);
+    }
+
+    @Override
+    public List<WishlistProductDTO> getWishlistProductsByUserId(Long userId) {
+        List<Wishlist> wishlistItems = ProductMasterDao.findByUserId_UserId(userId);
+        List<WishlistProductDTO> wishlistProducts = new ArrayList<>();
+
+        for (Wishlist wishlistItem : wishlistItems) {
+            WishlistProductDTO wishlistProductDTO = new WishlistProductDTO();
+            wishlistProductDTO.setWishlistId(wishlistItem.getWishlistId());
+            ProductMaster productMaster= wishlistItem.getProductMaster();
+            ProductMasterDto productMasterDto = copyEntityToDto(productMaster);
+            productMasterDto.setProductName(productMaster.getProductName());
+            wishlistProductDTO.setProduct(productMasterDto);
+            wishlistProducts.add(wishlistProductDTO);
+        }
+
+        return wishlistProducts;
+    }
+
+    @Override
+    public void deleteWishlistByProductId(Long productId) {
+        ProductMasterDao.deleteByProductMaster_ProductId(productId);
+    }
+
+
 
     private ProductMasterDto copyEntityToDto(ProductMaster productMaster) {
         ProductMasterDto ProductMasterDto = new ProductMasterDto();
@@ -90,6 +124,8 @@ public class ProductMasterServiceImpl implements ProductMasterService {
             userDto.setUserName(productMaster.getUserId().getUserName());
             ProductMasterDto.setUserId(userDto);
         }
+
+
         return ProductMasterDto;
     }
 
