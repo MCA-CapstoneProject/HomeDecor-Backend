@@ -57,6 +57,7 @@ public class AuthController {
         LoginResponseDto loginResponseDto =new LoginResponseDto();
         loginResponseDto.setToken(Auth0TokenGetter.getAccessToken());
         loginResponseDto.setUserName(userDto.getUserName());
+        loginResponseDto.setUserId(userDto.getUserId());
         if(userDto.getRoleDto()!=null) {
             loginResponseDto.setRoleId(userDto.getRoleDto().getRoleId());
             loginResponseDto.setRoleName(userDto.getRoleDto().getName());

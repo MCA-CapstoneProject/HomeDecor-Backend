@@ -1,9 +1,7 @@
 package com.homedecor.rest.service;
 
 import com.homedecor.rest.common.messages.BaseResponse;
-import com.homedecor.rest.dto.ProductMasterDto;
-import com.homedecor.rest.dto.WishlistDto;
-import com.homedecor.rest.dto.WishlistProductDTO;
+import com.homedecor.rest.dto.*;
 import com.homedecor.rest.entity.Wishlist;
 
 import java.util.List;
@@ -25,5 +23,11 @@ public interface ProductMasterService {
 
     void deleteWishlistByProductId(Long productId);
 
+    void addToCart(CartRequestDto cartRequest);
 
+    void updateCartItem(CartRequestDto cartRequest);
+
+    void deleteCartItem(Long cartId);
+
+    List<CartItemResponseDto> getUserCart(Long userId);
 }

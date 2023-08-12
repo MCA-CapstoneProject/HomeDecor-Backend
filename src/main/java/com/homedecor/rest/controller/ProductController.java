@@ -1,9 +1,7 @@
 package com.homedecor.rest.controller;
 
 import com.homedecor.rest.common.messages.BaseResponse;
-import com.homedecor.rest.dto.ProductMasterDto;
-import com.homedecor.rest.dto.WishlistDto;
-import com.homedecor.rest.dto.WishlistProductDTO;
+import com.homedecor.rest.dto.*;
 import com.homedecor.rest.entity.ProductMaster;
 import com.homedecor.rest.entity.Wishlist;
 import com.homedecor.rest.service.ProductMasterService;
@@ -75,5 +73,29 @@ public class ProductController {
     public ResponseEntity<String> deleteWishlistByProductId(@NotNull(message = "productId can't be null") @RequestParam Long productId) {
         productMasterService.deleteWishlistByProductId(productId);
         return ResponseEntity.ok("Wishlist items for product with ID " + productId + " deleted.");
+    }
+
+    @PostMapping(value = "/addToCart")
+    public ResponseEntity<String> addToCart(@RequestBody CartRequestDto cartRequest) {
+        productMasterService.addToCart(cartRequest);
+        return ResponseEntity.ok("Item added to cart.");
+    }
+
+    @PostMapping(value = "/updateCart")
+    public ResponseEntity<String> updateCartItem(@RequestBody CartRequestDto cartRequest) {
+        productMasterService.updateCartItem(cartRequest);
+        return ResponseEntity.ok("Cart item updated.");
+    }
+
+    @DeleteMapping(value = "/deleteCart")
+    public ResponseEntity<String> deleteCartItem(@NotNull(message = "cartId can't be null") @RequestParam Long cartId) {
+        productMasterService.deleteCartItem(cartId);
+        return ResponseEntity.ok("Cart item deleted.");
+    }
+
+    @GetMapping(value = "/getCart")
+    public ResponseEntity<List<CartItemResponseDto>> getUserCart(@NotNull(message = "userId can't be null") @RequestParam Long userId) {
+        List<CartItemResponseDto> cartItems = productMasterService.getUserCart(userId);
+        return ResponseEntity.ok(cartItems);
     }
 }

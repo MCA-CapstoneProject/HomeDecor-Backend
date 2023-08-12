@@ -1,11 +1,12 @@
 package com.homedecor.rest.repo;
 
 
+import com.homedecor.rest.entity.Cart;
 import com.homedecor.rest.entity.ProductMaster;
 import com.homedecor.rest.entity.Wishlist;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductMasterDao {
     List<ProductMaster> findAllProducts();
@@ -26,5 +27,12 @@ public interface ProductMasterDao {
 
     void deleteByProductMaster_ProductId(Long productId);
 
+    void saveCart(Cart cartItem);
+
+    void deleteCartById(Long cartId);
+
+    List<Cart> findCartByUserId(Long userId);
+
+    Optional<Cart> findByCartId(Long cartId);
 }
 

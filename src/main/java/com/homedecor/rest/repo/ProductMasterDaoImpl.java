@@ -1,13 +1,14 @@
 package com.homedecor.rest.repo;
 
+import com.homedecor.rest.entity.Cart;
 import com.homedecor.rest.entity.ProductMaster;
 import com.homedecor.rest.entity.User;
 import com.homedecor.rest.entity.Wishlist;
-import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ProductMasterDaoImpl implements ProductMasterDao {
@@ -16,6 +17,9 @@ public class ProductMasterDaoImpl implements ProductMasterDao {
 
     @Autowired
     WishlistRepository wishlistRepository;
+
+    @Autowired
+    CartRepo cartRepo;
 
 
     @Override
@@ -63,6 +67,26 @@ public class ProductMasterDaoImpl implements ProductMasterDao {
     @Override
     public void deleteByProductMaster_ProductId(Long productId) {
         wishlistRepository.deleteByProductMaster_ProductId(productId);
+    }
+
+    @Override
+    public void saveCart(Cart cartItem) {
+        cartRepo.save(cartItem);
+    }
+
+    @Override
+    public void deleteCartById(Long cartId) {
+        cartRepo.deleteById(cartId);
+    }
+
+    @Override
+    public List<Cart> findCartByUserId(Long userId) {
+        return cartRepo.findByUserId_UserId(userId);
+    }
+
+    @Override
+    public Optional<Cart> findByCartId(Long cartId) {
+        return cartRepo.findById(cartId);
     }
 }
 

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,6 +22,9 @@ import java.util.stream.Collectors;
 public class ProductMasterServiceImpl implements ProductMasterService {
     @Autowired
     com.homedecor.rest.repo.ProductMasterDao ProductMasterDao;
+
+    @Autowired
+    com.homedecor.rest.repo.UserDao userDao;
 
     @Override
     public List<ProductMasterDto> getAllProduct() {
@@ -100,6 +104,51 @@ public class ProductMasterServiceImpl implements ProductMasterService {
         ProductMasterDao.deleteByProductMaster_ProductId(productId);
     }
 
+    @Override
+    public void addToCart(CartRequestDto cartRequest) {
+        Cart cartItem = new Cart();
+        cartItem.setCartQuantity(cartRequest.getQuantity());
+        ProductMaster productMaster = new ProductMaster();
+        productMaster.setProductId(cartRequest.getProductId());
+        cartItem.setProductMaster(productMaster);
+        User user = userDao.findByUserId(cartRequest.getUserId());
+        cartItem.setUserId(user);
+        ProductMasterDao.saveCart(cartItem);
+    }
+
+    @Override
+    public void updateCartItem(CartRequestDto cartRequest) {
+        Cart existingCartItem = ProductMasterDao.findByCartId(cartRequest.getCartId()).get();
+        existingCartItem.setCartQuantity(cartRequest.getQuantity());
+        ProductMaster productMaster = new ProductMaster();
+        productMaster.setProductId(cartRequest.getProductId());
+        existingCartItem.setProductMaster(productMaster);
+        User user = new User();
+        user.setUserId(cartRequest.getUserId());
+        existingCartItem.setUserId(user);
+        ProductMasterDao.saveCart(existingCartItem);
+
+    }
+
+    @Override
+    public void deleteCartItem(Long cartId) {
+        ProductMasterDao.deleteCartById(cartId);
+    }
+
+    @Override
+    public List<CartItemResponseDto> getUserCart(Long userId) {
+        List<Cart> cartItems = ProductMasterDao.findCartByUserId(userId);
+        List<CartItemResponseDto> cartItemResponses = new ArrayList<>();
+        for (Cart cartItem : cartItems) {
+            CartItemResponseDto cartItemResponse = new CartItemResponseDto();
+            cartItemResponse.setCartId(cartItem.getCartId());
+            cartItemResponse.setQuantity(cartItem.getCartQuantity());
+            ProductMaster productMaster = cartItem.getProductMaster();
+            cartItemResponse.setProductMasterDto(copyEntityToDto(productMaster));
+            cartItemResponses.add(cartItemResponse);
+        }
+        return cartItemResponses;
+    }
 
 
     private ProductMasterDto copyEntityToDto(ProductMaster productMaster) {

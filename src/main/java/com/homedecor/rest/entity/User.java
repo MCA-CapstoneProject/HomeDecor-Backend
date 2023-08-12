@@ -1,6 +1,5 @@
 package com.homedecor.rest.entity;
 
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -17,8 +16,6 @@ import static javax.persistence.GenerationType.IDENTITY;
                 @UniqueConstraint(columnNames = {"email"})
         }
 )
-@Cacheable
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region = "user")
 public class User {
 
     @Id
@@ -74,7 +71,16 @@ public class User {
         this.wishlisted = wishlisted;
     }
 
+    @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
+    private Set<Cart> carts;
 
+    public Set<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(Set<Cart> carts) {
+        this.carts = carts;
+    }
 /*
 
 
@@ -96,16 +102,6 @@ public class User {
         this.orders = order;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Cart> cart_items = new HashSet<Cart>(0);
-
-    public Set<Cart> getCartItem() {
-        return this.cart_items;
-    }
-
-    public void setCartItem(Set<Cart> cart) {
-        this.cart_items = cart;
-    }
 
 
 
