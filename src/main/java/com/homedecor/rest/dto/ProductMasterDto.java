@@ -16,6 +16,7 @@ public class ProductMasterDto {
     private Double price;
     private Integer quantity;
     private String size;
+    private String imagePath;
     private UserDto userId;
 
 
@@ -107,6 +108,13 @@ public class ProductMasterDto {
 
     public void setSize(String size) {
         this.size = size;
+    }
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     public UserDto getUserId() {

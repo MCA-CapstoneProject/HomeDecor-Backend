@@ -61,7 +61,8 @@ public class ProductImages implements java.io.Serializable {
         this.imageName = imageName;
     }
 
-    @Column(name = "image_path", length = 125)
+    @Lob
+    @Column(name = "image_path", columnDefinition = "BOLB")
     public String getImagePath() {
         return this.imagePath;
     }

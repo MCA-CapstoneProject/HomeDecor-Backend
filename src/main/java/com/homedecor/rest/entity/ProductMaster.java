@@ -2,18 +2,9 @@ package com.homedecor.rest.entity;
 
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
 
 import static javax.persistence.GenerationType.IDENTITY;
-
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 
 @Entity
@@ -30,7 +21,7 @@ public class ProductMaster implements java.io.Serializable {
     private Double price;
     private Integer quantity;
     private String size;
-    private Set<ProductImages> productImageses = new HashSet<ProductImages>(0);
+    private String imagePath;
     private User userId;
 
     @Id
@@ -107,13 +98,6 @@ public class ProductMaster implements java.io.Serializable {
     public void setProductCode(String productCode) {
         this.productCode = productCode;
     }
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "productMaster")
-    public Set<ProductImages> getProductImageses() {
-        return this.productImageses;
-    }
-    public void setProductImageses(Set<ProductImages> productImageses) {
-        this.productImageses = productImageses;
-    }
     @Column(name = "price", precision = 22, scale = 0)
     public Double getPrice() {
         return price;
@@ -136,6 +120,15 @@ public class ProductMaster implements java.io.Serializable {
 
     public void setSize(String size) {
         this.size = size;
+    }
+
+    @Lob
+    @Column(name = "image_path", columnDefinition = "BLOB")
+    public String getImagePath() {
+        return this.imagePath;
+    }
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)

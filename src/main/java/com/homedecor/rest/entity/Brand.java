@@ -23,6 +23,8 @@ import javax.persistence.Table;
 @Table(name = "brand")
 public class Brand implements java.io.Serializable {
 
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Integer brandId;
     private User userByModifiedBy;
     private User userByCreatedBy;
@@ -124,6 +126,7 @@ public class Brand implements java.io.Serializable {
     public void setWebsite(String website) {
         this.website = website;
     }
+
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "brand")
     public Set<ProductMaster> getProductMasters() {
