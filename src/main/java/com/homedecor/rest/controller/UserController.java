@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import com.homedecor.rest.common.messages.BaseResponse;
+import com.homedecor.rest.dto.CartItemResponseDto;
 import com.homedecor.rest.model.Message;
 import com.homedecor.rest.service.UserService;
 import com.homedecor.rest.service.UserServiceImpl;
@@ -48,6 +49,11 @@ public class UserController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
+	@GetMapping(value = "/getUsersByRoleId")
+	public ResponseEntity<List<UserDto>> getUserByRoleId(@NotNull(message = "roleId can't be null") @RequestParam Long roleId) {
+		List<UserDto> list = userService.getUsersByRoleId(roleId);
+		return new ResponseEntity<List<UserDto>>(list, HttpStatus.OK);
+	}
 
 	@GetMapping(value = "/public")
 	public Message publicEndpoint() {

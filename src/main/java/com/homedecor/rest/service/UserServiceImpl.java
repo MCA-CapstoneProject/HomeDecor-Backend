@@ -79,6 +79,11 @@ public class UserServiceImpl implements UserService{
         return userDao.existsByEmail(email);
     }
 
+    @Override
+    public List<UserDto> getUsersByRoleId(Long roleId) {
+        return userDao.getUsersByRoleId(roleId).stream().map(this::copyEntityToDto).collect(Collectors.toList());
+    }
+
     private UserDto copyEntityToDto(User user) {
         UserDto userDto = new UserDto();
         BeanUtils.copyProperties(user, userDto);

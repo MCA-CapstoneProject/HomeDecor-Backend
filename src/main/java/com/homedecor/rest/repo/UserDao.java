@@ -2,6 +2,7 @@ package com.homedecor.rest.repo;
 
 import com.homedecor.rest.entity.User;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface UserDao {
@@ -19,6 +20,8 @@ public interface UserDao {
     boolean existsByEmail(String email);
 
     User findByUserNameOrEmail(String userName, String email);
+
+    List<User> getUsersByRoleId(Long roleId);
 
 //    Optional<User> findByEmail(String email);
 //    Optional<User> findByUsernameOrEmail(String username, String email);

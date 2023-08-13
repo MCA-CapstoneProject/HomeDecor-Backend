@@ -1,5 +1,6 @@
 package com.homedecor.rest.repo;
 
+import com.homedecor.rest.entity.Role;
 import com.homedecor.rest.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -50,5 +51,12 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User findByUserNameOrEmail(String userName, String email) {
         return userRepo.findByUserNameOrEmail(userName,email);
+    }
+
+    @Override
+    public List<User> getUsersByRoleId(Long roleId) {
+        Role role= new Role();
+        role.setRoleId(roleId);
+        return userRepo.findByRole(role);
     }
 }
