@@ -1,44 +1,26 @@
+package com.homedecor.rest.dto;
 
-package com.homedecor.rest.entity;
-
-import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
-@Entity
-@Table(name = "orders")
-public class Order implements java.io.Serializable {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
+public class OrderDTO {
     private Long orderId;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "order_date")
     private Date orderDate;
-
-    @Column(name = "total_price")
     private Long totalPrice;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User userId;
-
-    @Column(name = "payment_ref")
     private String paymentRef;
-
-    @Column(name = "address")
     private String address;
+    private List<OrderItemDTO> orderItems; // List of order items
+    private String status; // Order status
+    private Long userId;
+    public Long getUserId() {
+        return userId;
+    }
 
-    @Column(name = "status")
-    private String status;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order", cascade = CascadeType.ALL)
-    private Set<OrderItem> orderItems = new HashSet<>();
+
 
     public Long getOrderId() {
         return orderId;
@@ -64,14 +46,6 @@ public class Order implements java.io.Serializable {
         this.totalPrice = totalPrice;
     }
 
-    public User getUserId() {
-        return userId;
-    }
-
-    public void setUserId(User userId) {
-        this.userId = userId;
-    }
-
     public String getPaymentRef() {
         return paymentRef;
     }
@@ -88,11 +62,11 @@ public class Order implements java.io.Serializable {
         this.address = address;
     }
 
-    public Set<OrderItem> getOrderItems() {
+    public List<OrderItemDTO> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(Set<OrderItem> orderItems) {
+    public void setOrderItems(List<OrderItemDTO> orderItems) {
         this.orderItems = orderItems;
     }
 
