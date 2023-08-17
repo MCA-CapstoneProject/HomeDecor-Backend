@@ -26,23 +26,11 @@ public class ProductController {
     @Autowired
     private ProductMasterService productMasterService;
 
-    @GetMapping(value = "/getAllProduct")
-    public ResponseEntity<List<ProductMasterDto>> getAllProduct() {
-        List<ProductMasterDto> list = productMasterService.getAllProduct();
-        return new ResponseEntity<List<ProductMasterDto>>(list, HttpStatus.OK);
-    }
-
     @GetMapping(value = "/getProductByUserId")
     public ResponseEntity<List<ProductMasterDto>> getProductByUserId(@NotNull(message = "userId can't be null") @RequestParam Long userid) {
 
         List<ProductMasterDto> list = productMasterService.getProductByUserId(userid);
         return new ResponseEntity<List<ProductMasterDto>>(list, HttpStatus.OK);
-    }
-
-    @GetMapping(value = "/get/by-id")
-    public ResponseEntity<ProductMasterDto> getUserById(@NotNull(message = "Id can't be null") @RequestParam Long id) {
-        ProductMasterDto list = productMasterService.findByProductId(id);
-        return new ResponseEntity<ProductMasterDto>(list, HttpStatus.OK);
     }
 
     @PostMapping(value = {"/add", "/update"})
