@@ -1,11 +1,11 @@
 package com.homedecor.rest.repo;
 
-import com.homedecor.rest.dto.OrderDTO;
-import com.homedecor.rest.dto.OrderItemDTO;
+import com.homedecor.rest.dto.*;
 import com.homedecor.rest.entity.Order;
 import com.homedecor.rest.entity.OrderItem;
 import com.homedecor.rest.entity.ProductMaster;
 import com.homedecor.rest.entity.User;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -34,7 +34,10 @@ public class OrderDaoImpl implements OrderDao {
                 orderItemDTO.setProductId(orderItem.getOrderItemId());
                 orderItemDTO.setQuantity(orderItem.getQuantity());
                 orderItemDTO.setPrice(orderItem.getProductMaster().getPrice());
+                ProductMaster productMaster = orderItem.getProductMaster();
+                orderItemDTO.setProduct(copyEntityToDto(productMaster));
                 orderItemDTOs.add(orderItemDTO);
+
             }
             orderDTO.setOrderItems(orderItemDTOs);
 
@@ -122,6 +125,32 @@ public class OrderDaoImpl implements OrderDao {
             // Handle case when order is not found
             return null;
         }
+    }
+    private ProductMasterDto copyEntityToDto(ProductMaster productMaster) {
+        ProductMasterDto ProductMasterDto = new ProductMasterDto();
+        BeanUtils.copyProperties(productMaster, ProductMasterDto);
+
+        if (productMaster.getCategory() != null) {
+            CategoryDto categoryDto = new CategoryDto();
+            categoryDto.setCategoryId(productMaster.getCategory().getCategoryId());
+            categoryDto.setCategoryName(productMaster.getCategory().getCategoryName());
+            ProductMasterDto.setCategoryDto(categoryDto);
+        }
+        if (productMaster.getBrand() != null) {
+            BrandDto brandDto = new BrandDto();
+            brandDto.setBrandId(productMaster.getBrand().getBrandId());
+            brandDto.setBrandName(productMaster.getBrand().getBrandName());
+            ProductMasterDto.setBrandDto(brandDto);
+        }
+        if (productMaster.getUserId() != null) {
+            UserDto userDto = new UserDto();
+            userDto.setUserId(productMaster.getUserId().getUserId());
+            userDto.setUserName(productMaster.getUserId().getUserName());
+            ProductMasterDto.setUserId(userDto);
+        }
+
+
+        return ProductMasterDto;
     }
 
     public void deleteOrder(Long orderId) {
