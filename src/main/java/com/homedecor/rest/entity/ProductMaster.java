@@ -19,6 +19,9 @@ public class ProductMaster implements java.io.Serializable {
     private Boolean status;
     private String productCode;
     private Double price;
+
+    private  Double discountPrice;
+
     private Integer quantity;
     private String size;
     private String imagePath;
@@ -105,6 +108,17 @@ public class ProductMaster implements java.io.Serializable {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+    @Column(name = "discount_price", precision = 22, scale = 0)
+
+    public Double getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(Double discountPrice) {
+        this.discountPrice = discountPrice;
+    }
+
     @Column(name = "quantity", length = 55)
     public Integer getQuantity() {
         return quantity;

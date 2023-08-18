@@ -14,6 +14,9 @@ public class ProductMasterDto {
     private Boolean status;
     private String productCode;
     private Double price;
+
+    private Double discountPrice;
+
     private Integer quantity;
     private String size;
     private String imagePath;
@@ -92,6 +95,14 @@ public class ProductMasterDto {
 
     public void setPrice(Double price) {
         this.price = price;
+    }
+
+    public Double getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(Double discountPrice) {
+        this.discountPrice = discountPrice;
     }
 
     public Integer getQuantity() {
