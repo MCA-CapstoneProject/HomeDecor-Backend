@@ -163,7 +163,7 @@ public class ProductMaster implements java.io.Serializable {
     public void setWishlistItems(Set<Wishlist> items) {
         this.wishlistItems = items;
     }
-    /*
+
 
     private Set<Cart> cartItems = new HashSet<Cart>(0);
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "productMaster")
@@ -174,7 +174,7 @@ public class ProductMaster implements java.io.Serializable {
     public void setCartItems(Set<Cart> items) {
         this.cartItems = items;
     }
-
+/*
 
 
     private Set<Order_Item> order_Item = new HashSet<Order_Item>(0);

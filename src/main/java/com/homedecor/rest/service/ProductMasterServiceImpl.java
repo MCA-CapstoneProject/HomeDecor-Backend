@@ -120,12 +120,12 @@ public class ProductMasterServiceImpl implements ProductMasterService {
     public void updateCartItem(CartRequestDto cartRequest) {
         Cart existingCartItem = ProductMasterDao.findByCartId(cartRequest.getCartId()).get();
         existingCartItem.setCartQuantity(cartRequest.getQuantity());
-        ProductMaster productMaster = new ProductMaster();
-        productMaster.setProductId(cartRequest.getProductId());
-        existingCartItem.setProductMaster(productMaster);
-        User user = new User();
-        user.setUserId(cartRequest.getUserId());
-        existingCartItem.setUserId(user);
+//        ProductMaster productMaster = new ProductMaster();
+//        productMaster.setProductId(cartRequest.getProductId());
+//        existingCartItem.setProductMaster(productMaster);
+//        User user = new User();
+//        user.setUserId(cartRequest.getUserId());
+//        existingCartItem.setUserId(user);
         ProductMasterDao.saveCart(existingCartItem);
 
     }
